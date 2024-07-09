@@ -40,35 +40,39 @@ export default function PostPage({ params }) {
 
   return (
     <div>
-      <div className='grid lg:grid-cols-12 grid-cols-1 gap-8'>
+      <div className='grid mt-32 lg:grid-cols-12 grid-cols-1 gap-8'>
         <div className='md:col-span-2 col-span-1'>
           <div className='hidden md:block space-y-3'>
-            <Add1/>
-            <Add1/>
+            <Add1 />
+            <Add1 />
           </div>
         </div>
-        <div className='md:col-span-10 col-span-1'>
-          <Add/>
+        <div className='md:col-span-7 col-span-1'>
+          <Add />
 
-          <div className='grid md:grid-cols-12 grid-cols-1 gap-3'>
-            <div className='c md:col-span-8 col-span-1'> 
-            <div className=' '>
-            <div className='md:col-span-4 col-span-1'>
-              <DetailPage post={post}/>
-            </div>
+       
+          <div>
+                  <DetailPage post={post} />
+                  <RelatedData related={related} />
+               
           </div>
+
           
-            </div>
-
-            <div className=' col-span-4'>
-<NewsTabs/>
-          </div>
-
-          </div>
-          
-          <RelatedData related={related} />
         </div>
+
+        <div className='md:col-span-3 col-span-1'>
+          <Add1/>
+          <div className='mt-6 mb-16'>
+            <NewsTabs/>
+          </div>
+
+          <Add1/>
+
+        </div>
+
+        
       </div>
+      
     </div>
   );
 }

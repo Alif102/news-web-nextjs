@@ -36,7 +36,7 @@ const CategoryPage = ({ params }) => {
     }
 
     return (
-        <div>
+        <div className='mt-32'>
             <h1>{pageData.title}</h1>
             <div dangerouslySetInnerHTML={{ __html: pageData.page_body }} />
         </div>

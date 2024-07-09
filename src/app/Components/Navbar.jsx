@@ -1,8 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import Header from './IndexCom/Header';
-import axios from 'axios';
+import { BiHomeAlt } from "react-icons/bi";import axios from 'axios';
 
 const cacheDuration = 2 * 60 * 1000; // 2 minutes in milliseconds
 
@@ -103,7 +102,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="bg-gray-200 mx-auto">
+      <div className="fixed top-0 left-0 w-full z-50 bg-gray-200">
         <nav className="bg-gray-100 flex text-gray-800 items-center justify-between flex-wrap pb-2 px-5">
           <div>
             {logo ? (
@@ -131,7 +130,8 @@ const Navbar = () => {
             id="navbar"
           >
             <ul className="flex gap-4">
-              {categories.slice(0, 5).map((category, index) => (
+           <Link href='/'> <BiHomeAlt size={26}  className=' hover:text-purple-500 text-black' /></Link>
+              {categories.slice(0, 6).map((category, index) => (
                 <li key={index}>
                   {category.key === 'category' ? (
                     <Link href={`/category/${category.id}`}>
@@ -162,7 +162,7 @@ const Navbar = () => {
                     </span>
                     {dropdownVisible && (
                       <ul className="absolute bg-white shadow-lg rounded mt-1 py-1 w-48">
-                        {categories.slice(5).map((category, index) => (
+                        {categories.slice(6).map((category, index) => (
                           <li key={index}>
                             {category.key === 'category' ? (
                               <Link href={`/category/${category.id}`}>

@@ -51,7 +51,7 @@ const CategoryPage = ({ params }) => {
     }, [id]);
 
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-12 gap-7'>
+        <div className='grid mt-28 grid-cols-1 lg:grid-cols-12 gap-7'>
             <div className='lg:col-span-2 hidden lg:block col-span-1'>
                 <div className='space-y-5'>
                     <Add1 />

@@ -20,7 +20,7 @@ const HomeLayout = () => {
   
   return (
     <div>
-      <div className='grid lg:grid-cols-12  gap-3 grid-cols-1 '>
+      <div className='grid lg:grid-cols-12 mt-32   gap-3 grid-cols-1 '>
         <div className='col-span-2 md:ml-16 lg:ml-0'>
           <div className='hidden md:block'>
             <Add1 />
