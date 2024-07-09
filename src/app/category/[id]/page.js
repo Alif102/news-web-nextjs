@@ -3,6 +3,7 @@ import Add from '@/app/Components/IndexCom/Add';
 import Add1 from '@/app/Components/IndexCom/Add1';
 import AllPost from '@/app/Components/IndexCom/AllPost';
 import axios from 'axios';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const CategoryPage = ({ params }) => {
@@ -75,6 +76,7 @@ const CategoryPage = ({ params }) => {
                         <ul>
                             {posts.map(post => (
                                 <li key={post.id}>
+                                    <Link href={`/post/${post?.id}`}>
                                     <div className='flex my-4 gap-6'>
                                         <img src={`https://admin.desh365.top/storage/post-image/${post?.image}`} className='w-52 rounded-lg' alt={post?.title} />
                                         <div className='ml-4 space-y-2'>
@@ -83,6 +85,7 @@ const CategoryPage = ({ params }) => {
                                             <p dangerouslySetInnerHTML={{ __html: post?.post_body }}></p>
                                         </div>
                                     </div>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>

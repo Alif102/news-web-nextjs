@@ -28,7 +28,7 @@ const NewsTabs = () => {
   const renderPosts = (postList) => (
     <div className='flex flex-col space-y-4 gap-3 py-4'>
       {postList.map((post) => (
-        <Link href={`/details/${post?.id}`} key={post?.id} className='flex items-center gap-2 hover:underline'>
+        <Link href={`/post/${post?.id}`} key={post?.id} className='flex items-center gap-2 hover:underline'>
           <img className='w-20 rounded-md ' src={`https://admin.desh365.top/public/storage/post-image/${post?.image}`} alt={post?.title} />
           <h2 className='text-[14px]'>{post?.title}</h2>
         </Link>

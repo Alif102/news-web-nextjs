@@ -1,7 +1,8 @@
-"use client";
+"use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import Header from './IndexCom/Header';
+import axios from 'axios';
 
 const cacheDuration = 2 * 60 * 1000; // 2 minutes in milliseconds
 
@@ -20,6 +21,7 @@ const fetchDataWithCache = async (url, cacheKey) => {
 };
 
 const Navbar = () => {
+  const [categories, setCategories] = useState([]);
   const [logo, setLogo] = useState(null);
   const [posts, setPosts] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -27,12 +29,27 @@ const Navbar = () => {
   const [isNavbarHidden, setIsNavbarHidden] = useState(true);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('https://admin.desh365.top/api/structure');
+        const data = response.data;
+        if (data.status) {
+          setCategories(data.structure.category_menu);
+        }
+      } catch (error) {
+        console.error('Error fetching the data:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
     const fetchLogo = async () => {
       try {
         const result = await fetchDataWithCache('https://admin.desh365.top/api/structure', 'structureData');
         if (result.status) {
           setLogo(result.structure.logo);
-          console.log(result.structure.logo);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -73,6 +90,17 @@ const Navbar = () => {
     setActiveRoute(route);
   };
 
+  const formatUrl = (url) => {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  };
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
   return (
     <div>
       <div className="bg-gray-200 mx-auto">
@@ -102,38 +130,67 @@ const Navbar = () => {
             className={`w-full lg:w-auto block lg:items-center lg:inline-block ${isNavbarHidden ? 'hidden' : ''}`}
             id="navbar"
           >
-            <Header/>
-            {/* <div className="lg:flex-grow justify-center text-[18px] text-center space-x-3">
-              <ul className="flex md:flex-row flex-col md:items-center md:gap-5 gap-3">
-                {posts.slice(0, 5).map(post => (
-                  <li key={post.id}>
-                    <Link href={`/category/${post.category_id}`} className={`hover:text-purple-500 ${activeRoute === post.category_id.toString() ? 'text-purple-500 font-bold' : ''}`} onClick={() => handleSetActiveRoute(post.category_id.toString())}>
-                      {post.category_id}
+            <ul className="flex gap-4">
+              {categories.slice(0, 5).map((category, index) => (
+                <li key={index}>
+                  {category.key === 'category' ? (
+                    <Link href={`/category/${category.id}`}>
+                      <p className={`hover:text-purple-500 ${activeRoute === `/category/${category.id}` ? 'text-purple-500 font-bold' : ''}`} onClick={() => handleSetActiveRoute(`/category/${category.id}`)}>
+                        {category.name}
+                      </p>
                     </Link>
-                  </li>
-                ))}
-                {posts.length > 5 && (
-                  <li
-                    className="relative"
-                    onMouseEnter={() => setDropdownVisible(true)}
-                    onMouseLeave={() => setDropdownVisible(false)}
-                  >
-                    <span className="hover:text-purple-500 cursor-pointer">আরও</span>
+                  ) : category.key === 'page' ? (
+                    <Link href={`/page/${category.id}`}>
+                      <p className={`hover:text-purple-500 ${activeRoute === `/page/${category.id}` ? 'text-purple-500 font-bold' : ''}`} onClick={() => handleSetActiveRoute(`/page/${category.id}`)}>
+                        {category.name}
+                      </p>
+                    </Link>
+                  ) : category.key === 'customlink' ? (
+                    <a href={formatUrl(category.id)} target="_blank" rel="noopener noreferrer">
+                      <p className="hover:text-purple-500">
+                        {category.name}
+                      </p>
+                    </a>
+                  ) : null}
+                </li>
+              ))}
+              {categories.length > 5 && (
+                <li>
+                  <p className="hover:text-purple-500 cursor-pointer">
+                    <span onClick={toggleDropdown}>
+                      অন্যান্য
+                    </span>
                     {dropdownVisible && (
-                      <ul className="absolute right-0 mt-0 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 transition-opacity duration-300 ease-in-out opacity-100 transform scale-100">
-                        {posts.slice(5).map(post => (
-                          <li key={post.id} className="px-4 py-2 hover:bg-gray-100 transition-colors duration-200 ease-in-out">
-                            <Link href={`/category/${post.category_id}`} className={activeRoute === post.category_id.toString() ? 'text-purple-500 font-bold' : ''} onClick={() => handleSetActiveRoute(post.category_id.toString())}>
-                              {post.category_id}
-                            </Link>
+                      <ul className="absolute bg-white shadow-lg rounded mt-1 py-1 w-48">
+                        {categories.slice(5).map((category, index) => (
+                          <li key={index}>
+                            {category.key === 'category' ? (
+                              <Link href={`/category/${category.id}`}>
+                                <p className={`hover:text-purple-500 ${activeRoute === `/category/${category.id}` ? 'text-purple-500 font-bold' : ''}`} onClick={() => handleSetActiveRoute(`/category/${category.id}`)}>
+                                  {category.name}
+                                </p>
+                              </Link>
+                            ) : category.key === 'page' ? (
+                              <Link href={`/page/${category.id}`}>
+                                <p className={`hover:text-purple-500 ${activeRoute === `/page/${category.id}` ? 'text-purple-500 font-bold' : ''}`} onClick={() => handleSetActiveRoute(`/page/${category.id}`)}>
+                                  {category.name}
+                                </p>
+                              </Link>
+                            ) : category.key === 'customlink' ? (
+                              <a href={formatUrl(category.id)} target="_blank" rel="noopener noreferrer">
+                                <p className="">
+                                  {category.name}
+                                </p>
+                              </a>
+                            ) : null}
                           </li>
                         ))}
                       </ul>
                     )}
-                  </li>
-                )}
-              </ul>
-            </div> */}
+                  </p>
+                </li>
+              )}
+            </ul>
           </div>
         </nav>
       </div>
