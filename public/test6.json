@@ -1,0 +1,38 @@
+{
+    "status": true,
+    "message": "Posts get successfully!",
+    "data": [
+        {
+            "id": 12,
+            "category_id": 8,
+            "short_url": "আনারসে বদলে যাচ্ছে সুনামগঞ্জের অর্থনীতি",
+            "title": "আনারসে বদলে যাচ্ছে সুনামগঞ্জের অর্থনীতি",
+            "category_name": "কৃষি ও অর্থ",
+            "category": {
+                "id": 7,
+                "name": "কৃষি ও অর্থ",
+                "parent_id": null,
+                "level": null,
+                "short_url": "category/কৃষি ও অর্থ",
+                "image": null
+                
+            }
+        },
+        {
+            "id": 5,
+            "category_id": 8,
+            "short_url": "নতুন বাগানে করণীয়",
+            "title": "নতুন বাগানে করণীয়",
+            "category_name": "কৃষি ও অর্থ",
+            "category": {
+                "id": 7,
+                "name": "কৃষি ও অর্থ",
+                "parent_id": null,
+                "level": null,
+                "short_url": "category/কৃষি ও অর্থ",
+                "image": null
+                
+            }
+        }
+    ]
+}
