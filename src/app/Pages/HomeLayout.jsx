@@ -12,10 +12,12 @@ import FourthCategory from '../Components/IndexCom/FourthCategory';
 import CurrencyRates from '../Components/IndexCom/CurrencyRates';
 import FifthCategory from '../Components/IndexCom/FifthCategory';
 import FifthMoreCategory from '../Components/IndexCom/FifthMoreCategory';
+import Footer from '../Components/IndexCom/Footer';
 
-// import AdComponent from '../AdComponent';
 
 const HomeLayout = () => {
+
+  
 
   
   return (
@@ -28,21 +30,20 @@ const HomeLayout = () => {
         </div>
 
         <div className='lg:col-span-10 col-span-10 '>
-        <div className='grid md:grid-cols-8 lg:grid-cols-8 grid-cols-1 gap-5 '>
-              <div className='md:col-span-5  col-span-1'>
+        <div className='grid lg:grid-cols-8 grid-cols-1 gap-5 '>
+              <div className='lg:col-span-5   col-span-1'>
                 <MainCategory />
               </div>
-              <div className='md:col-span-3  col-span-1 px-2 h-[404px] w-[100%] mt-4 shadow-lg'>
+              <div className='lg:col-span-3  col-span-1 px-2 h-[404px] w-[100%] mt-4 shadow-lg'>
                 <AllPost />
               </div>
             </div>
           <Add />
-          {/* <AdComponent/> */}
+         
           <div>
           
           </div>
-          
-          {/* <TestFile/> */}
+         
           
         </div>
       </div>
@@ -115,6 +116,8 @@ const HomeLayout = () => {
         
 
       </div>
+
+      <Footer/>
       </div>
 
 

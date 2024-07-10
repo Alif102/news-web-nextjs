@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import useSWR from 'swr';
@@ -13,15 +14,46 @@ const AllPost = () => {
     dedupingInterval: 60000, // Cache the data for 1 minute
   });
 
+  const [visiblePosts, setVisiblePosts] = useState([]);
+  const [index, setIndex] = useState(10);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (data && data.status) {
+      setVisiblePosts(data.data.slice(0, index));
+    }
+  }, [data, index]);
+
+  const loadMorePosts = () => {
+    setLoading(true);
+    setIndex(prevIndex => prevIndex + 10);
+  };
+
+  useEffect(() => {
+    if (data && data.status) {
+      setVisiblePosts(data.data.slice(0, index));
+      setLoading(false);
+    }
+  }, [data, index]);
+
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !loading) {
+      loadMorePosts();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading]);
+
   if (error) return <div>Failed to load data</div>;
   if (!data) return <div>Loading...</div>;
-
-  const postsData = data.status ? data.data : [];
 
   return (
     <div className='lg:w-[100%] w-[60%] mx-auto h-[410px] shadow-lg overflow-x-scroll'>
       <div className='flex flex-col gap-2'>
-        {postsData.map(category => (
+        {visiblePosts.map(category => (
           <div key={category.category_id}>
             <div>
               {category.posts.map(post => {
@@ -50,6 +82,7 @@ const AllPost = () => {
           </div>
         ))}
       </div>
+      {loading && <div className='text-center py-4'>Loading more posts...</div>}
     </div>
   );
 };

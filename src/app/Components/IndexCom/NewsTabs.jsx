@@ -37,16 +37,16 @@ const NewsTabs = () => {
   );
 
   return (
-    <div className="shadow-lg w-full mt-4 py-6  h-[500px]">
+    <div className="shadow-lg w-full mt-1 mb-24 py-6  h-[500px]">
       <div className="flex bg-purple-500 justify-evenly">
         <button
-          className={`px-3 py-2 ${activeTab === 1 ? 'shadow-lg border border-black my-3 rounded-lg text-white'  : 'shadow-xl text-white '}`}
+          className={`px-3 py-2 ${activeTab === 1 ? 'shadow-lg border border-black my-3 rounded-lg text-white'  : ' text-white '}`}
           onClick={() => setActiveTab(1)}
         >
           সর্বশেষ
         </button>
         <button
-          className={`px-3 py-2 ${activeTab === 2 ? 'shadow-lg border border-black my-3   rounded-lg text-white' : 'shadow-xl text-white '}`}
+          className={`px-3 py-2 ${activeTab === 2 ? 'shadow-lg border border-black my-3   rounded-lg text-white' : ' text-white '}`}
           onClick={() => setActiveTab(2)}
         >
           সর্বোচ্চ পঠিত

@@ -43,7 +43,7 @@ const FifthMoreCategory = () => {
         <div key={categoryId} className='grid grid-cols-8 gap-2 mb-8'>
           <div className='lg:col-span-3 col-span-1'>
             {categoryData[categoryId].length > 0 && (
-              <Link href={`/Pages/post/${categoryData[categoryId][0]?.id}`} key={categoryData[categoryId][0]?.id}>
+              <Link href={`/post/${categoryData[categoryId][0]?.id}`} key={categoryData[categoryId][0]?.id}>
                  <h2 className='md:text-xl my-3 text-sm font-bold'>
                     {categoryData[categoryId][0]?.category_name}
                   </h2>
@@ -68,7 +68,7 @@ const FifthMoreCategory = () => {
           <div className='lg:col-span-5 col-span-1 mt-9'>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
               {categoryData[categoryId].slice(1).map(post => (
-                <Link href={`/Pages/post/${post?.id}`} key={post.id}>
+                <Link href={`/post/${post?.id}`} key={post.id}>
                   <div className="flex gap-2 items-center space-y-2" key={post?.id}>
                     <img className="w-24 h-24" src={`https://admin.desh365.top/public/storage/post-image/${post.image}`} alt={post.title} />
                     <h2 className='text-sm hover:underline'>{post.title}</h2>

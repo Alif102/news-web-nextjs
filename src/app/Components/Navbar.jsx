@@ -102,7 +102,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="fixed top-0 left-0 w-full z-50 bg-gray-200">
+      <div className=" ">
         <nav className="bg-gray-100 flex text-gray-800 items-center justify-between flex-wrap pb-2 px-5">
           <div>
             {logo ? (
@@ -112,7 +112,7 @@ const Navbar = () => {
                 </Link>
               </div>
             ) : (
-              <p>Loading...</p>
+              <p>Logo ....</p>
             )}
           </div>
           <div className="block lg:hidden">
@@ -130,7 +130,7 @@ const Navbar = () => {
             id="navbar"
           >
             <ul className="flex gap-4">
-           <Link href='/'> <BiHomeAlt size={26}  className=' hover:text-purple-500 text-black' /></Link>
+           <Link href='/'> <BiHomeAlt size={22}  className=' hover:text-purple-500 text-black' /></Link>
               {categories.slice(0, 6).map((category, index) => (
                 <li key={index}>
                   {category.key === 'category' ? (
@@ -161,7 +161,7 @@ const Navbar = () => {
                       অন্যান্য
                     </span>
                     {dropdownVisible && (
-                      <ul className="absolute bg-white shadow-lg rounded mt-1 py-1 w-48">
+                      <ul className="absolute bg-white shadow-lg rounded right-2 mt-1 px-3 py-1 w-48">
                         {categories.slice(6).map((category, index) => (
                           <li key={index}>
                             {category.key === 'category' ? (

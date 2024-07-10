@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Naavbar from './Components/Navbar';
+import Navbar from './Components/Navbar';
 // import Ad from './Components/Ad';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,12 +22,17 @@ export default function RootLayout({ children }) {
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3355748505131146" crossOrigin="anonymous"></script>
       </head>
       <body className={inter.className}>
-        <div className="container xl:max-w-7xl lg:max-w-6xl md:max-w-4xl mx-auto">
-          <Naavbar />
-          {/* <Ad slot="2858387384" style={{ display: 'inline-block', width: '336px', height: '280px' }} /> */}
-          {children}
-        </div>
-      </body>
+  <div className="container xl:max-w-[1300px] lg:max-w-4xl md:max-w-2xl mx-auto">
+    <div className="fixed right-0 left-0 top-0 z-50  w-full">
+      <div className="container lg:max-w-4xl xl:max-w-[1300px] md:max-w-2xl mx-auto">
+        <Navbar />
+      </div>
+    </div>
+    <div className="pt-16"> {/* Add padding-top to avoid content overlap with the fixed navbar */}
+      {children}
+    </div>
+  </div>
+</body>
     </html>
   );
 }

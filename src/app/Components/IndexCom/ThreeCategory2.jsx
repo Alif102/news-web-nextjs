@@ -45,7 +45,7 @@ const ThreeCategory2 = () => {
               <h2 className='md:text-xl mb-2 text-sm font-bold'>
                 {posts[0]?.category_name}
               </h2>
-          <Link href={`Pages/post/${posts[0]?.id}`} key={posts[0]?.id}>
+          <Link href={`/post/${posts[0]?.id}`} key={posts[0]?.id}>
             <div className='' key={posts[0]?.id}>
               <div className='relative' style={{ height: '280px' }}>
                 <Image
