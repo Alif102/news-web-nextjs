@@ -17,25 +17,21 @@ const MainCategory = () => {
     return <div>An error occurred while fetching the data</div>;
   }
 
-  if (!structureData || !allPostsData) {
-    return <div>No data available</div>;
-  }
-
-  const mainCategoryId = parseInt(structureData.structure.main_category);
+  const mainCategory = parseInt(structureData.structure.main_category);
   const mainCategoryPosts = allPostsData.data.flatMap(category => 
-    category.posts.filter(post => post.category_id === mainCategoryId)
+    category.posts.filter(post => post.category_id === mainCategory)
   );
 
   return (
     <div>
       <Carousel transition={{ duration: 1 }} className='rounded-xl'>
         {mainCategoryPosts.map(post => (
-          <Link href={`/post/${post.id}`} key={post.id}>
+          <Link href={`post/${post?.id}`} key={post?.id}>
             <div className='relative' style={{ height: '410px', width: '100%' }}>
               <div className='object-cover rounded-md h-full w-full relative'>
                 <Image
                   src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
-                  alt={post.title || 'Default Alt Text'}
+                  alt={post?.title || 'Default Alt Text'}
                   layout='fill'
                   objectFit='cover'
                   priority={true}

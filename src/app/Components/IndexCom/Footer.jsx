@@ -97,7 +97,7 @@ const Footer = () => {
           {structureData.fb_link && (
             <p className='flex gap-2 items-center'>
               <a href={formatUrl(structureData.fb_link)} target="_blank" rel="noopener noreferrer">
-                <ImFacebook2 size={22}/>
+                <ImFacebook2 color='#5e80bf' size={22}/>
               </a>
             </p>
           )}

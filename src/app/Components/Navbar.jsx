@@ -161,7 +161,7 @@ const Navbar = () => {
                       অন্যান্য
                     </span>
                     {dropdownVisible && (
-                      <ul className="absolute bg-white shadow-lg rounded right-2 mt-1 px-3 py-1 w-48">
+                      <ul className="absolute bg-white shadow-lg rounded right-[310px]  mt-6 px-3 py-1 w-48">
                         {categories.slice(6).map((category, index) => (
                           <li key={index}>
                             {category.key === 'category' ? (
