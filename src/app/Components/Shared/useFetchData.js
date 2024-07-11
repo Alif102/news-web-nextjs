@@ -29,7 +29,7 @@ const useFetchData = () => {
           // Use cached data if it matches
           setStructureData(structureCache.data);
         } else {
-          // Update cache and state if data is different
+          // Update cache and state if data is different 
           localStorage.setItem('structureData', JSON.stringify({
             data: fetchedStructureData,
             timestamp: now,

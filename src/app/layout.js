@@ -10,7 +10,7 @@ export const metadata = {
   openGraph: {
     title: 'News Portal',
     description: 'News Portal is a...',
-    url: 'https://news-nextjs-phi.vercel.app',
+    url: 'https://news-web-nextjs.vercel.app',
     type: 'website',
   },
 };
@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         <Navbar />
       </div>
     </div>
-    <div className="pt-16"> {/* Add padding-top to avoid content overlap with the fixed navbar */}
+    <div className="pt-16"> 
       {children}
     </div>
   </div>
