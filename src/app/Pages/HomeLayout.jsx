@@ -22,7 +22,7 @@ const HomeLayout = () => {
   
   return (
     <div>
-      <div className='grid lg:grid-cols-12 mt-32   gap-3 grid-cols-1 '>
+      <div className='grid lg:grid-cols-12 mt-12 md:mt-16   gap-3 grid-cols-1 '>
         <div className='col-span-2 md:ml-16 lg:ml-0'>
           <div className='hidden md:block'>
             <Add1 />
@@ -80,12 +80,12 @@ const HomeLayout = () => {
 
 
 
-   <div className='grid lg:grid-cols-12 gap-3 mt-9 justify-center '>
-  <div className='lg:col-span-10  col-span-1 flex justify-center items-center'>
+   <div className='grid lg:grid-cols-12 gap-3 mt-9 '>
+  <div className='lg:col-span-10  col-span-1 '>
     <FourthCategory />
   </div>
   
-  <div className='lg:col-span-2 col-span-1 flex justify-center '>
+  <div className='lg:col-span-2 col-span-1 '>
     <CurrencyRates />
   </div>
 </div>
@@ -94,12 +94,12 @@ const HomeLayout = () => {
 
 
  <div className='grid grid-cols-12 mt-16 mb-6 gap-3'>
-        <div className='col-span-10  '>
+        <div className='md:col-span-10 lg:col-span-10 col-span-12  '>
           <FifthCategory/>
        
       </div>
         
-        <div className='col-span-2'>
+        <div className='col-span-2 hidden md:block'>
           <Add1/>
 
         </div>

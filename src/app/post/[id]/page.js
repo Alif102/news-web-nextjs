@@ -40,26 +40,41 @@ export default function PostPage({ params }) {
 
   return (
     <div>
-      <div className="grid mt-32 lg:grid-cols-12 grid-cols-1 gap-8">
-        <div className="md:col-span-2 pb-16 col-span-1">
-          <div className="hidden md:block space-y-3 sticky top-0">
+      <div className="grid mt-6   lg:grid-cols-12 grid-cols-1 gap-8">
+        <div className="md:col-span-2 md:pb-16 pb-2 col-span-1">
+          <div className="hidden md:block  sticky top-0">
             <Add1 />
             
           </div>
         </div>
-        <div className="md:col-span-7 col-span-1">
-          <Add />
+        <div className="lg:col-span-7 col-span-1">
+         <div className=" bg-green-300">
+
+          <Add/>
+         </div>
           <div>
             <DetailPage post={post} />
             <RelatedData related={related} />
             
           </div>
         </div>
-        <div className="md:col-span-3 pb-16 col-span-1">
+        <div className="lg:col-span-3 pb-16 col-span-1">
           <div className="sticky  top-4">
             <Add1 />
             <div className="">
               <NewsTabs />
+
+
+              {/* <div>
+                <h1>hello-1</h1>
+                <h1>hello-2</h1>
+                <h1>hello-3</h1>
+                <h1>hello-4</h1>
+                <h1>hello-5</h1>
+                <h1>hello-6</h1>
+                <h1>hello-7</h1>
+                <h1>hello-8</h1>
+              </div> */}
             </div>
           </div>
         </div>

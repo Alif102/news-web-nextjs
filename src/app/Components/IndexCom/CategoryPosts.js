@@ -19,23 +19,18 @@ const CategoryPosts = ({ loading, error, posts, categoryName }) => {
 
   return (
     <div>
-      <h2 className='md:text-xl my-3 text-sm font-bold'>{categoryName}</h2>
+      <h2 className='md:text-xl my-3 ml-3 md:ml-0 text-sm font-bold'>{categoryName}</h2>
       <div className='grid lg:grid-cols-8 gap-2'>
         <div className='lg:col-span-3 col-span-1 flex items-center'>
           {posts.length > 0 && (
             <Link href={`/post/${posts[0]?.id}`} key={posts[0]?.id}>
               <div key={posts[0]?.id}>
-                <div className='relative' style={{ height: '380px', width: '100%' }}>
-                  <Image
-                    className='rounded-xl'
-                    src={`https://admin.desh365.top/public/storage/post-image/${posts[0]?.image}`}
-                    alt={posts[0]?.title || 'Default Alt Text'}
-                    layout='fill'
-                    objectFit='cover'
-                    priority={true}
-                  />
+                <div >
+                                  <img className=' rounded-lg w-[97%] mx-auto' src={`https://admin.desh365.top/public/storage/post-image/${posts[0]?.image}`} alt="Default Alt Text"  />
+
+                 
                 </div>
-                <h2 className='md:text-xl mt-2 text-sm font-bold'>{posts[0]?.title}</h2>
+                <h2 className='md:text-xl ml-3 md:ml-0 mt-2 text-sm font-bold'>{posts[0]?.title}</h2>
               </div>
             </Link>
           )}

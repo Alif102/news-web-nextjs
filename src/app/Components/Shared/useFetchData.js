@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const fetcher = async (url) => {
@@ -12,9 +12,6 @@ const useFetchData = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const cacheDuration = 2 * 60 * 1000;
-  const now = new Date().getTime();
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -22,20 +19,7 @@ const useFetchData = () => {
       try {
         // Fetch structure data
         const fetchedStructureData = await fetcher('https://admin.desh365.top/api/structure');
-        
-        // Compare new structure data with cached data
-        const structureCache = JSON.parse(localStorage.getItem('structureData'));
-        if (structureCache && JSON.stringify(structureCache.data) === JSON.stringify(fetchedStructureData)) {
-          // Use cached data if it matches
-          setStructureData(structureCache.data);
-        } else {
-          // Update cache and state if data is different 
-          localStorage.setItem('structureData', JSON.stringify({
-            data: fetchedStructureData,
-            timestamp: now,
-          }));
-          setStructureData(fetchedStructureData);
-        }
+        setStructureData(fetchedStructureData);
 
         // Fetch all posts data
         const fetchedAllPostsData = await fetcher('https://admin.desh365.top/api/all-post');
@@ -51,11 +35,7 @@ const useFetchData = () => {
     fetchData();
   }, []);
 
-  const memoizedStructureData = useMemo(() => structureData, [structureData]);
-  const memoizedAllPostsData = useMemo(() => allPostsData, [allPostsData]);
-
-  return { structureData: memoizedStructureData, allPostsData: memoizedAllPostsData, loading, error };
+  return { structureData, allPostsData, loading, error };
 };
 
 export default useFetchData;
-

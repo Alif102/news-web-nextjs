@@ -6,8 +6,7 @@ import Head from 'next/head';
 import Loader from './Shared/Loader';
 import { FaFacebook } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
-import { CiTwitter } from "react-icons/ci";
-import { FaInstagram } from "react-icons/fa";
+// import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 const DetailPage = ({ post }) => {
@@ -64,27 +63,20 @@ const DetailPage = ({ post }) => {
           </button>
         </a>
 
-        <a
-          href={`https://www.instagram.com/?url=${encodeURIComponent(currentUrl)}`}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <button className='bg-pink-600 p-2 text-white rounded-lg'>
-          <FaInstagram size={26} />
-          </button>
-        </a>
+        
        </div>
 
         <h1 className='f text-[22px] font-bold'>{post?.title}</h1>
 
-        <div className='rounded-md overflow-hidden relative' style={{ height: '360px', width: '50%' }}>
+        {/* <div className='rounded-md overflow-hidden relative' style={{ height: '360px', width: '50%' }}>
           <Image
             src={imageUrl}
             alt={post?.title || 'Default Alt Text'}
             layout="fill"
             objectFit="cover" priority={true}
           />
-        </div>
+        </div> */}
+        <img src={imageUrl} alt="Default Alt Text"  />
 
         <PostBody postBody={post?.post_body} />
       </div>

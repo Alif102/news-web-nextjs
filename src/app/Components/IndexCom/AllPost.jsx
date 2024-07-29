@@ -51,7 +51,7 @@ const AllPost = () => {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div className='lg:w-[100%] w-[60%] mx-auto h-[410px] shadow-lg overflow-x-scroll'>
+    <div className='lg:w-[100%] w-[90%] mx-auto h-[410px] shadow-lg overflow-x-scroll'>
       <div className='flex flex-col gap-2'>
         {visiblePosts.map(category => (
           <div key={category.category_id}>

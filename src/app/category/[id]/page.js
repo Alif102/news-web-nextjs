@@ -6,16 +6,27 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+// Utility function to truncate HTML content
+const truncateHtml = (html, wordLimit) => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    const text = div.textContent || div.innerText || '';
+    const words = text.split(' ');
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : text;
+};
+
 const CategoryPage = ({ params }) => {
     const { id } = params;
     const [posts, setPosts] = useState([]);
     const [categoryName, setCategoryName] = useState('');
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if (id) {
             const fetchPosts = async () => {
                 setLoading(true);
+                setError('');
                 try {
                     // Check if data is cached in localStorage
                     const cachedData = localStorage.getItem(`category-post-${id}`);
@@ -42,6 +53,7 @@ const CategoryPage = ({ params }) => {
                     }
                 } catch (error) {
                     console.error('Error fetching the posts:', error);
+                    setError('Failed to load posts.');
                     setLoading(false);
                 }
             };
@@ -64,7 +76,7 @@ const CategoryPage = ({ params }) => {
                     <Add />
                     <div className='bg-gray-300 py-4 px-3'>
                         <h1 className='text-center p-1 font-bold'>
-                            শিরোনাম
+                            {categoryName || 'শিরোনাম'}
                         </h1>
                     </div>
 
@@ -72,19 +84,27 @@ const CategoryPage = ({ params }) => {
                         <div className='text-center py-4'>
                             <span>Loading...</span>
                         </div>
+                    ) : error ? (
+                        <div className='text-center py-4 text-red-500'>
+                            <span>{error}</span>
+                        </div>
                     ) : (
                         <ul>
                             {posts.map(post => (
                                 <li key={post.id}>
                                     <Link href={`/post/${post?.id}`}>
-                                    <div className='flex my-4 gap-6'>
-                                        <img src={`https://admin.desh365.top/storage/post-image/${post?.image}`} className='w-52 rounded-lg' alt={post?.title} />
-                                        <div className='ml-4 space-y-2'>
-                                            <h2 className='font-bold text-xl'>{post.title}</h2>
-                                            <p>প্রকাশিত: {new Date(post?.created_at).toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}</p>
-                                            <p dangerouslySetInnerHTML={{ __html: post?.post_body }}></p>
+                                        <div className='flex my-4 gap-6'>
+                                            <img
+                                                src={`https://admin.desh365.top/storage/post-image/${post?.image}`}
+                                                className='w-72 h-72 rounded-lg'
+                                                alt={post?.title}
+                                            />
+                                            <div className='ml-4 space-y-2'>
+                                                <h2 className='font-bold text-xl'>{post.title}</h2>
+                                                <p>প্রকাশিত: {new Date(post?.created_at).toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}</p>
+                                                <p dangerouslySetInnerHTML={{ __html: truncateHtml(post?.post_body, 30) }}></p>
+                                            </div>
                                         </div>
-                                    </div>
                                     </Link>
                                 </li>
                             ))}
