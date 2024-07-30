@@ -55,7 +55,7 @@ const AllPost = () => {
             const imageUrl = `https://admin.desh365.top/public/storage/post-image/${post.image}`;
             return (
               <div key={post.id}>
-                <Link href={`Pages/post/${post?.id}`} key={post?.id}>
+                <Link href={`post/${post?.id}`} key={post?.id}>
                   <div className='flex space-y-2 gap-2 items-center hover:underline'>
                     <Image className=' rounded-md transition-all duration-300 hover:scale-110' width={90} height={45} src={imageUrl} alt={post.title} />
                     <h2 className='text-[14px]'>{post.title}</h2>
