@@ -11,7 +11,6 @@ const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 const AllPost = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(8);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,10 +47,7 @@ const AllPost = () => {
   }, []);
 
   const memoizedData = useMemo(() => {
-    // Limit to first 6 items
-    const limitedData = data.slice(0, visibleCount);
-
-    return limitedData.map(category => (
+    return data.map(category => (
       <div key={category.category_id}>
         <div>
           {category.posts.map(post => {
@@ -71,28 +67,18 @@ const AllPost = () => {
         </div>
       </div>
     ));
-  }, [data, visibleCount]);
-
-  const handleLoadMore = () => {
-    setVisibleCount(prevCount => prevCount + 6); // Load 6 more items
-  };
+  }, [data]);
 
   return (
     <div className='w-[100%] h-[410px] shadow-lg overflow-x-scroll'>
       <div className='flex flex-col gap-2'>
         {loading ? (
-          <p className='text-center mt-8'>Loading...</p>
+          <p className=' text-center mt-8'>Loading...</p>
         ) : (
-          <>
-            {memoizedData}
-            {data.length > visibleCount && (
-              <button onClick={handleLoadMore} className='mt-4 p-2 bg-blue-500 text-white rounded'>
-                Load More
-              </button>
-            )}
-          </>
+          memoizedData
         )}
       </div>
+      
     </div>
   );
 };
