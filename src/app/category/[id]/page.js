@@ -65,7 +65,7 @@ const CategoryPage = ({ params }) => {
     return (
         <div className='grid mt-28 grid-cols-1 lg:grid-cols-12 gap-7'>
             <div className='lg:col-span-2 hidden lg:block col-span-1'>
-                <div className='space-y-5'>
+                <div className='space-y-5 sticky  top-4'>
                     <Add1 />
                     <Add1 />
                 </div>
@@ -93,10 +93,10 @@ const CategoryPage = ({ params }) => {
                             {posts.map(post => (
                                 <li key={post.id}>
                                     <Link href={`/post/${post?.id}`}>
-                                        <div className='flex my-4 gap-6'>
+                                        <div className='flex flex-col md:flex-row my-4 gap-6'>
                                             <img
                                                 src={`https://admin.desh365.top/storage/post-image/${post?.image}`}
-                                                className='w-72 h-72 rounded-lg'
+                                                className='md:w-72 w-full md:px-0 px-3 h-72 rounded-lg'
                                                 alt={post?.title}
                                             />
                                             <div className='ml-4 space-y-2'>
@@ -113,14 +113,14 @@ const CategoryPage = ({ params }) => {
                 </div>
             </div>
 
-            <div className='lg:col-span-4 col-span-1 space-y-4'>
-                <div className='py-4 px-3'>
+            <div className='lg:col-span-4 col-span-1  space-y-4'>
+                <div className='py-4 px-3 sticky  top-4'>
                     <h1 className='text-center p-1 font-bold bg-gray-300'>
                         সর্বশেষ খবর
                     </h1>
                     <AllPost />
                 </div>
-                <div className='hidden lg:block'>
+                <div className='hidden sticky  top-4 lg:block'>
                     <Add1 />
                 </div>
             </div>

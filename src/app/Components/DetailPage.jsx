@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
 import PostBody from './Shared/Postbody';
-import Image from 'next/image';
 import Head from 'next/head';
 import Loader from './Shared/Loader';
 import { FaFacebook } from "react-icons/fa6";
@@ -68,14 +67,6 @@ const DetailPage = ({ post }) => {
 
         <h1 className='f text-[22px] font-bold'>{post?.title}</h1>
 
-        {/* <div className='rounded-md overflow-hidden relative' style={{ height: '360px', width: '50%' }}>
-          <Image
-            src={imageUrl}
-            alt={post?.title || 'Default Alt Text'}
-            layout="fill"
-            objectFit="cover" priority={true}
-          />
-        </div> */}
         <img src={imageUrl} alt="Default Alt Text"  />
 
         <PostBody postBody={post?.post_body} />

@@ -1,19 +1,28 @@
-
-"use client"
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { Carousel } from '@material-tailwind/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Loader from '../Shared/Loader';
 
-// Fetcher function to handle API requests
-const fetcher = async (url) => {
-  const response = await axios.get(url);
-  return response.data;
+// Cache duration of 2 minutes
+const cacheDuration = 6 * 60 * 1000;
+
+const fetchDataWithCache = async (url, cacheKey) => {
+  const now = new Date().getTime();
+  const cachedData = JSON.parse(localStorage.getItem(cacheKey));
+
+  if (cachedData && now - cachedData.timestamp < cacheDuration) {
+    return cachedData.data;
+  } else {
+    const response = await axios.get(url);
+    const result = response.data;
+    localStorage.setItem(cacheKey, JSON.stringify({ data: result, timestamp: now }));
+    return result;
+  }
 };
 
-// MainCategory component with integrated data fetching logic
 const MainCategory = () => {
   const [structureData, setStructureData] = useState(null);
   const [allPostsData, setAllPostsData] = useState(null);
@@ -22,20 +31,20 @@ const MainCategory = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      setError(false);
       try {
-        // Fetch both data concurrently
+        setLoading(true);
+        setError(false);
+
         const [structureResponse, allPostsResponse] = await Promise.all([
-          fetcher('https://admin.desh365.top/api/structure'),
-          fetcher('https://admin.desh365.top/api/all-post'),
+          fetchDataWithCache('https://admin.desh365.top/api/structure', 'structureData'),
+          fetchDataWithCache('https://admin.desh365.top/api/all-post', 'allPostsData'),
         ]);
 
         setStructureData(structureResponse);
         setAllPostsData(allPostsResponse);
-        setLoading(false);
-      } catch (err) {
+      } catch {
         setError(true);
+      } finally {
         setLoading(false);
       }
     };
@@ -43,38 +52,35 @@ const MainCategory = () => {
     fetchData();
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
+  const mainCategoryPosts = useMemo(() => {
+    if (!structureData || !allPostsData) return [];
 
-  if (error) {
-    return <div>Please Relode again</div>;
-  }
+    const mainCategory = parseInt(structureData.structure.main_category);
+    return allPostsData.data.flatMap(category =>
+      category.posts.filter(post => post.category_id === mainCategory)
+    );
+  }, [structureData, allPostsData]);
 
-  const mainCategory = parseInt(structureData.structure.main_category);
-  const mainCategoryPosts = allPostsData.data.flatMap(category => 
-    category.posts.filter(post => post.category_id === mainCategory)
-  );
+  if (loading) return <Loader />;
+  if (error) return <div>Please Reload Again</div>;
 
   return (
     <div>
-      <Carousel transition={{ duration: 1 }} className='rounded-xl'>
+      <Carousel transition={{ duration: 1 }} className="rounded-xl">
         {mainCategoryPosts.map(post => (
-          <Link href={`post/${post?.id}`} key={post?.id}>
-            <div className='relative' style={{ height: '410px', width: '100%' }}>
-              <div className='object-cover rounded-md h-full w-full relative'>
-                <Image
-                  src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
-                  alt={post?.title || 'Default Alt Text'}
-                  layout='fill'
-                  objectFit='cover'
-                  priority={true}
-                />
-              </div>
-              
-              <div className='absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 rounded-md'></div>
-              <div className='absolute inset-20 flex items-center mt-0 justify-center'>
-                <h2 className='text-white md:text-xl text-sm font-bold'>{post.title}</h2>
+          <Link href={`/post/${post.id}`} key={post.id}>
+            <div className="relative" style={{ height: '410px', width: '100%' }}>
+              <Image
+                src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
+                alt={post.title || 'Default Alt Text'}
+                layout="fill"
+                objectFit="cover"
+                priority
+                className="object-cover rounded-md h-full w-full relative"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 rounded-md"></div>
+              <div className="absolute inset-20 flex items-center justify-center mt-0">
+                <h2 className="text-white md:text-xl text-sm font-bold">{post.title}</h2>
               </div>
             </div>
           </Link>

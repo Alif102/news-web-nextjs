@@ -65,16 +65,7 @@ export default function PostPage({ params }) {
               <NewsTabs />
 
 
-              {/* <div>
-                <h1>hello-1</h1>
-                <h1>hello-2</h1>
-                <h1>hello-3</h1>
-                <h1>hello-4</h1>
-                <h1>hello-5</h1>
-                <h1>hello-6</h1>
-                <h1>hello-7</h1>
-                <h1>hello-8</h1>
-              </div> */}
+             
             </div>
           </div>
         </div>

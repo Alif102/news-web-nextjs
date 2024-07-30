@@ -80,12 +80,12 @@ const HomeLayout = () => {
 
 
 
-   <div className='grid lg:grid-cols-12 gap-3 mt-9 '>
+   <div className='grid lg:grid-cols-12 gap-5 mt-9 '>
   <div className='lg:col-span-10  col-span-1 '>
     <FourthCategory />
   </div>
   
-  <div className='lg:col-span-2 col-span-1 '>
+  <div className='lg:col-span-2 col-span-1 md:mt-12 mt-3 '>
     <CurrencyRates />
   </div>
 </div>

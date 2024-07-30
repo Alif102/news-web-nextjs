@@ -1,9 +1,10 @@
-"use client"
+"use client";
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { BiHomeAlt } from "react-icons/bi";import axios from 'axios';
+import { BiHomeAlt } from "react-icons/bi";
+import axios from 'axios';
 
-const cacheDuration = 2 * 60 * 1000; // 2 minutes in milliseconds
+const cacheDuration = 8 * 60 * 1000; // 2 minutes in milliseconds
 
 const fetchDataWithCache = async (url, cacheKey) => {
   const now = new Date().getTime();
@@ -12,8 +13,8 @@ const fetchDataWithCache = async (url, cacheKey) => {
   if (cachedData && now - cachedData.timestamp < cacheDuration) {
     return cachedData.data;
   } else {
-    const response = await fetch(url);
-    const result = await response.json();
+    const response = await axios.get(url);
+    const result = response.data;
     localStorage.setItem(cacheKey, JSON.stringify({ data: result, timestamp: now }));
     return result;
   }
@@ -30,10 +31,10 @@ const Navbar = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('https://admin.desh365.top/api/structure');
-        const data = response.data;
-        if (data.status) {
-          setCategories(data.structure.category_menu);
+        const result = await fetchDataWithCache('https://admin.desh365.top/api/structure', 'structureData');
+        if (result.status) {
+          setCategories(result.structure.category_menu);
+          setLogo(result.structure.logo);
         }
       } catch (error) {
         console.error('Error fetching the data:', error);
@@ -44,17 +45,6 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const fetchLogo = async () => {
-      try {
-        const result = await fetchDataWithCache('https://admin.desh365.top/api/structure', 'structureData');
-        if (result.status) {
-          setLogo(result.structure.logo);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     const fetchPosts = async () => {
       try {
         const result = await fetchDataWithCache('https://admin.desh365.top/api/all-post', 'allPostsData');
@@ -65,7 +55,6 @@ const Navbar = () => {
       }
     };
 
-    fetchLogo();
     fetchPosts();
   }, []);
 
@@ -130,7 +119,9 @@ const Navbar = () => {
             id="navbar"
           >
             <ul className="flex gap-4">
-           <Link href='/'> <BiHomeAlt size={22}  className=' hover:text-purple-500 text-black' /></Link>
+              <Link href='/'>
+                <BiHomeAlt size={22} className='hover:text-purple-500 text-black' />
+              </Link>
               {categories.slice(0, 6).map((category, index) => (
                 <li key={index}>
                   {category.key === 'category' ? (
@@ -161,7 +152,7 @@ const Navbar = () => {
                       অন্যান্য
                     </span>
                     {dropdownVisible && (
-                      <ul className="absolute bg-white shadow-lg rounded right-[310px]  mt-6 px-3 py-1 w-48">
+                      <ul className="absolute bg-white shadow-lg rounded right-[310px] mt-6 px-3 py-1 w-48">
                         {categories.slice(6).map((category, index) => (
                           <li key={index}>
                             {category.key === 'category' ? (
