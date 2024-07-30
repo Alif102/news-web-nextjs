@@ -13,6 +13,7 @@ import CurrencyRates from '../Components/IndexCom/CurrencyRates';
 import FifthCategory from '../Components/IndexCom/FifthCategory';
 import FifthMoreCategory from '../Components/IndexCom/FifthMoreCategory';
 import Footer from '../Components/IndexCom/Footer';
+// import MgCode from '../Components/MgCode';
 
 
 const HomeLayout = () => {
@@ -47,6 +48,7 @@ const HomeLayout = () => {
           
         </div>
       </div>
+      {/* <MgCode/> */}
 
 <div className='grid lg:grid-cols-12 gap-3 justify-center items-center'>
   <div className='lg:col-span-10 col-span-1 flex justify-center items-center'>

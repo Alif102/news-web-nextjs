@@ -67,33 +67,34 @@ const MoreThreeCategory = () => {
 
   // Create an array for posts based on the order of moreCategories
   const firstPosts = moreCategories.map(categoryId => firstPostsMap.get(categoryId)).filter(Boolean);
+ 
 
   return (
     <div className="grid grid-cols-1 px-3 md:px-0 md:grid-cols-3 gap-4">
-      {firstPosts.map(post => (
-        <Link href={`post/${post?.id}`} key={post?.id}>
-          <div className='relative overflow-hidden shadow-lg'>
-            <h2 className='md:text-xl mb-3 text-sm font-bold'>
-              {post?.category_name}
-            </h2>
-            <div className='relative w-full h-64'>
-              <Image className='rounded-lg'
-                src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
-                alt={post?.title || 'Default Alt Text'}
-                layout='fill'
-                objectFit='cover'
-                priority={true}
-              />
-            </div>
-            <div className='absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 rounded-md'></div>
-            <div className='absolute bottom-0 left-0 p-4'>
-              <h2 className='text-white md:text-md text-sm font-bold'>
-                {post.title}
-              </h2>
-            </div>
-          </div>
-        </Link>
-      ))}
+      {firstPosts.map((post, index) => (
+  <Link href={`post/${post?.id}`} key={`post-${post?.id}-${index}`}>
+    <div className='relative overflow-hidden shadow-lg'>
+      <h2 className='md:text-xl mb-3 text-sm font-bold'>
+        {post?.category_name}
+      </h2>
+      <div className='relative w-full h-64'>
+        <Image className='rounded-lg'
+          src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
+          alt={post?.title || 'Default Alt Text'}
+          layout='fill'
+          objectFit='cover'
+          priority={true}
+        />
+      </div>
+      <div className='absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 rounded-md'></div>
+      <div className='absolute bottom-0 left-0 p-4'>
+        <h2 className='text-white md:text-md text-sm font-bold'>
+          {post.title}
+        </h2>
+      </div>
+    </div>
+  </Link>
+))}
     </div>
   );
 };

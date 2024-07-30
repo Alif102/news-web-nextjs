@@ -72,7 +72,6 @@ const FifthMoreCategory = () => {
     categoryData[post.category_id].push(post);
   });
 
-  console.log(categoryData);
 
   return (
     <div>

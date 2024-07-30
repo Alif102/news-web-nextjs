@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const NewsTabs = () => {
   const [posts, setPosts] = useState([]);
@@ -29,7 +30,7 @@ const NewsTabs = () => {
     <div className='flex flex-col space-y-4 gap-3 py-4'>
       {postList.map((post) => (
         <Link href={`/post/${post?.id}`} key={post?.id} className='flex items-center gap-2 hover:underline'>
-          <img className='w-20 rounded-md ' src={`https://admin.desh365.top/public/storage/post-image/${post?.image}`} alt={post?.title} />
+          <Image width={80} height={49} className=' rounded-md ' src={`https://admin.desh365.top/public/storage/post-image/${post?.image}`} alt={post?.title} />
           <h2 className='text-[14px]'>{post?.title}</h2>
         </Link>
       ))}

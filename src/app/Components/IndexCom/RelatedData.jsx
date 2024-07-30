@@ -35,13 +35,7 @@ const RelatedData = ({ related }) => {
                           priority={true}
                         />
                       </div>
-                      {/* <div>
-                        <img
-                          className='transition duration-300 ease-in-out hover:scale-90 w-[100%] h-[200px] rounded-md'
-                          src={imageUrl}
-                          alt={post.title}
-                        />
-                      </div> */}
+                     
                       <h2 className='text-[16px] font-semibold hover:underline justify-center items-center'>
                         {post.title}
                       </h2>

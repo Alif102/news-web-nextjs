@@ -70,7 +70,7 @@ const SecondCategory = () => {
             return (
               <Link href={`post/${post?.id}`} key={post.id}>
                 <div className="flex gap-2 items-center space-y-2" key={post?.id}>
-                  <img className="w-24 h-24 rounded-md transition-all duration-300 hover:scale-110" src={imageUrl} alt={post.title} />
+                  <Image className=" rounded-md transition-all duration-300 hover:scale-110" width={100} height={100} src={imageUrl} alt={post.title} />
                   <h2 className='text-sm hover:underline'>{post.title}</h2>
                 </div>
               </Link>

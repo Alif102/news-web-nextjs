@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios'; 
+import Image from 'next/image';
 
 const CACHE_KEY = 'allPostData';
 const CACHE_EXPIRY_KEY = 'allPostDataExpiry';
@@ -55,8 +56,8 @@ const AllPost = () => {
             return (
               <div key={post.id}>
                 <Link href={`Pages/post/${post?.id}`} key={post?.id}>
-                  <div className='flex gap-2 items-center hover:underline'>
-                    <img className='w-20 rounded-md transition-all duration-300 hover:scale-110' src={imageUrl} alt={post.title} />
+                  <div className='flex space-y-2 gap-2 items-center hover:underline'>
+                    <Image className=' rounded-md transition-all duration-300 hover:scale-110' width={90} height={45} src={imageUrl} alt={post.title} />
                     <h2 className='text-[14px]'>{post.title}</h2>
                   </div>
                   <div className='border border-b'></div>

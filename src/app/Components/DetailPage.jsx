@@ -7,6 +7,7 @@ import { FaFacebook } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
 // import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import Image from 'next/image';
 
 const DetailPage = ({ post }) => {
   const imageUrl = `https://admin.desh365.top/public/storage/post-image/${post?.image}`;
@@ -17,7 +18,6 @@ const DetailPage = ({ post }) => {
       <Loader/>
     </div>;
   }
-  console.log(post);
 
   return (
     <div>
@@ -67,7 +67,13 @@ const DetailPage = ({ post }) => {
 
         <h1 className='f text-[22px] font-bold'>{post?.title}</h1>
 
-        <img src={imageUrl} alt="Default Alt Text"  />
+        <Image
+  src={imageUrl} 
+  alt="Default Alt Text" 
+  layout="responsive" 
+  width={700} 
+  height={475} 
+/>
 
         <PostBody postBody={post?.post_body} />
       </div>

@@ -3,6 +3,7 @@ import Add from '@/app/Components/IndexCom/Add';
 import Add1 from '@/app/Components/IndexCom/Add1';
 import AllPost from '@/app/Components/IndexCom/AllPost';
 import axios from 'axios';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -94,9 +95,9 @@ const CategoryPage = ({ params }) => {
                                 <li key={post.id}>
                                     <Link href={`/post/${post?.id}`}>
                                         <div className='flex flex-col md:flex-row my-4 gap-6'>
-                                            <img
+                                            <Image width={100} height={100}
                                                 src={`https://admin.desh365.top/storage/post-image/${post?.image}`}
-                                                className='md:w-72 w-full md:px-0 px-3 h-72 rounded-lg'
+                                                className='md:w-72 w-full md:px-0 px-3 h-72 rounded-lg' 
                                                 alt={post?.title}
                                             />
                                             <div className='ml-4 space-y-2'>

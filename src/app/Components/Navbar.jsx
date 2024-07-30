@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { BiHomeAlt } from "react-icons/bi";
 import axios from 'axios';
 
-const cacheDuration = 8 * 60 * 1000; // 2 minutes in milliseconds
+const cacheDuration = 8 * 60 * 1000; // 8 minutes in milliseconds
 
 const fetchDataWithCache = async (url, cacheKey) => {
   const now = new Date().getTime();
@@ -33,8 +33,8 @@ const Navbar = () => {
       try {
         const result = await fetchDataWithCache('https://admin.desh365.top/api/structure', 'structureData');
         if (result.status) {
-          setCategories(result.structure.category_menu);
-          setLogo(result.structure.logo);
+          setCategories(result.structure.category_menu || []);
+          setLogo(result.structure.logo || null);
         }
       } catch (error) {
         console.error('Error fetching the data:', error);
@@ -48,8 +48,10 @@ const Navbar = () => {
     const fetchPosts = async () => {
       try {
         const result = await fetchDataWithCache('https://admin.desh365.top/api/all-post', 'allPostsData');
-        const uniquePosts = removeDuplicates(result.data.posts, 'category_id');
-        setPosts(uniquePosts);
+        if (result && result.data && Array.isArray(result.data.posts)) {
+          const uniquePosts = removeDuplicates(result.data.posts, 'category_id');
+          setPosts(uniquePosts);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -91,7 +93,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className=" ">
+      <div>
         <nav className="bg-gray-100 flex text-gray-800 items-center justify-between flex-wrap pb-2 px-5">
           <div>
             {logo ? (
